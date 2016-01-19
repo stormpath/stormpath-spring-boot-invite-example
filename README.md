@@ -87,12 +87,13 @@ public String invite(
 *Note*: It would not be very efficient to invite people in bulk this way. The method above could easily be replaced with
 a method that receives and parses a CSV file or some other formatted file for bulk processing.
 
-Line 13 above is the key. It creates the Account in the `InviteExample - Invites` Directory.
+Line 13 above is the key - `inviteDirectory.createAccount(account)`. It creates the Account in the 
+`InviteExample - Invites` Directory.
 
 Here's the secret sauce: Because of the enabled Email Verification Workflow on the Directory, the user will receive the 
 invite email template at the specified email address.
 
-A random password as set on the Account. It is not intended that the user will ever login using this account. The 
+A random password is set on the Account. It is not intended that the user will ever login using this account. The 
 `A0` is prepended to conform to the default password rules for Stormpath Directories.
 
 Browsing to `/invite` endpoint like so: 
