@@ -16,7 +16,6 @@
 package com.stormpath.tutorial.controller;
 
 import com.stormpath.sdk.account.Account;
-import com.stormpath.sdk.application.Application;
 import com.stormpath.sdk.client.Client;
 import com.stormpath.sdk.directory.Directory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,19 +30,20 @@ import java.util.UUID;
 
 @Controller
 public class InviteController {
-    @Autowired
-    Client client;
-
-    @Autowired
-    Application application;
-
-    Directory inviteDirectory;
 
     @Value("#{ @environment['stormpath.invite.directory.href'] }")
-    String inviteDirectoryHref;
+    private String inviteDirectoryHref;
+
+    private Client client;
+    private Directory inviteDirectory;
+
+    @Autowired
+    public InviteController(Client client) {
+        this.client = client;
+    }
 
     @PostConstruct
-    void postConstruct() {
+    void setup() {
         inviteDirectory = client.getResource(inviteDirectoryHref, Directory.class);
     }
 
