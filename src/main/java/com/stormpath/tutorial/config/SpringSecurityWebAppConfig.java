@@ -19,11 +19,14 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
+import static com.stormpath.spring.config.StormpathWebSecurityConfigurer.stormpath;
+
 @Configuration
 public class SpringSecurityWebAppConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
+            .apply(stormpath()).and() // NOTE: as of Stormpath's 1.5.0 release, this line is no longer necessary. It's left here for those using older versions of the SDK
             .authorizeRequests()
             .antMatchers("/", "/invite", "/emailVerificationTokens").permitAll();
     }
